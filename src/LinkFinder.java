@@ -8,6 +8,6 @@ public class LinkFinder {
 	     }
 
 	     public Iterator<String> getLinks() {
-
+	    	 return null;
 	     }
 }
