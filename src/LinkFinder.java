@@ -1,13 +1,35 @@
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-
+//Question: I can name the group, but how do I call it? It wouldn't know about
 public class LinkFinder {
-	  public void processPage(InputStream in) {
+	ArrayList<String> linkList = new ArrayList<String>();
 
-	     }
+	public void processPage(InputStream in) {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		String pattern = "<\\s*[Aa]\\s+[Hh][Rr][Ee][Ff]\\s*=\\s*\"(?<Group1>[^\"]+)\"\\s*>*.*";
+		Pattern p = Pattern.compile(pattern);
 
-	     public Iterator<String> getLinks() {
-	    	 return null;
-	     }
+		try {
+			while (reader.ready()) {
+				String line = reader.readLine();
+				Matcher m = p.matcher(line);
+				if (m.find()) {
+					linkList.add(m.group("Group1"));
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Iterator<String> getLinks() {
+		return linkList.iterator();
+	}
 }
