@@ -26,7 +26,7 @@ public class LinkFinderTest {
 		 
 		 Iterator<String> testIterator = lf.getLinks();
 		 BufferedReader reader = null;
-		 do{
+		 
 			FileInputStream resultFile;
 			try {
 				resultFile = new FileInputStream("src/results");
@@ -34,8 +34,11 @@ public class LinkFinderTest {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
+			do{
 			  try {
-				assertTrue(testIterator.next().equals(reader.readLine()));
+				  String iteratorString = testIterator.next();
+				  String fileLine = reader.readLine();
+				assertTrue(iteratorString.equals(fileLine));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
